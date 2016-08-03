@@ -31,7 +31,7 @@ find_package(Boost 1.58 COMPONENTS system program_options REQUIRED)
 
 # Compiler options
 set(EXECUTABLE_OUTPUT_PATH "build")
-set(CMAKE_CXX_FLAGS "-O2 -Wall -pedantic -std=c++11")
+set(CMAKE_CXX_FLAGS "-O2 -Wall -pedantic -std=c++11 -pthread")
 include_directories(src)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
