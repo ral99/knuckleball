@@ -39,6 +39,15 @@ protected:
 
 //////////////////////////////////////////////////////// Context ///////////////////////////////////////////////////////
 
+TEST_F(ContextTest, Context_listNamespaces) {
+    EXPECT_EQ(context->execute("Context listNamespaces;"), "[]");
+    context->execute("Boolean create: t withValue: true;");
+    context->execute("Character create: std::numeric withValue: '1';");
+    context->execute("Integer create: uni::i withValue: 42;");
+    context->execute("String create: std::str withValue: \"knuckleball\";");
+    EXPECT_EQ(context->execute("Context listNamespaces;"), "[std,uni]");
+}
+
 TEST_F(ContextTest, Context_listVariables) {
     EXPECT_EQ(context->execute("Context listVariables;"), "[]");
     context->execute("Boolean create: t withValue: true;");

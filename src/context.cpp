@@ -112,7 +112,9 @@ std::string Context::execute_in_type(const Parser& parser) {
 
 std::string Context::execute_in_context(const Parser& parser) {
     std::string message_name = parser.message_name();
-    if (message_name == "listVariables")
+    if (message_name == "listNamespaces")
+        return op_listNamespaces(parser.arguments());
+    else if (message_name == "listVariables")
         return op_listVariables(parser.arguments());
     else if (message_name == "listVariablesOfNamespace:")
         return op_listVariablesOfNamespace(parser.arguments());
@@ -166,6 +168,23 @@ std::string Context::execute(const std::string& input, std::shared_ptr<Session> 
     else if (!_is_quiet_mode)
         std::cout << timestamp << " " << str_utils::trim(input) << " -> " << output << std::endl;
     return output;
+}
+
+std::string Context::op_listNamespaces(const std::vector<std::string>& arguments) {
+    if (arguments.size() != 0)
+        throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
+    std::set<std::string> namespaces;
+    for (auto it = _variables.begin(); it != _variables.end(); it++)
+        for (int i = 0; i < it->first.size() - 1; i++)
+            if (it->first[i] == ':' && it->first[i + 1] == ':')
+                namespaces.insert(it->first.substr(0, i));
+    std::string elements_str;
+    for (auto it = namespaces.begin(); it != namespaces.end(); it++) {
+        if (it != namespaces.begin())
+            elements_str += ",";
+        elements_str += *it;
+    }
+    return "[" + elements_str + "]";
 }
 
 std::string Context::op_listVariables(const std::vector<std::string>& arguments) {

@@ -57,6 +57,7 @@ private:
     std::string execute_in_variable(const Parser& parser);
 
     // Operators:
+    std::string op_listNamespaces(const std::vector<std::string>& arguments);
     std::string op_listVariables(const std::vector<std::string>& arguments);
     std::string op_listVariablesOfNamespace(const std::vector<std::string>& arguments);
     std::string op_deleteVariable(const std::vector<std::string>& arguments);
