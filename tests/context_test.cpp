@@ -33,7 +33,7 @@ protected:
     Context *context;
 
     virtual void SetUp() {
-        context = Context::get_instance("test.log", 3, 0.001);
+        context = Context::get_instance("", 3, 0.001, true);
     }
 };
 

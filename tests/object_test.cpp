@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class ObjectTest: public ::testing::Test {
 protected:
     virtual void SetUp() {
-        Context::get_instance("test.log", 3, 1e-9);
+        Context::get_instance("", 3, 1e-9, true);
     }
 };
 

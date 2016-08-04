@@ -34,9 +34,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // Initialize the singleton instance.
 Context* Context::_instance = NULL;
 
-Context* Context::get_instance(const std::string& logfile_name, int float_precision, float float_comparison_tolerance) {
+Context* Context::get_instance(const std::string& logfile_name, int float_precision, float float_comparison_tolerance,
+                               bool is_quiet_mode) {
     delete _instance;
-    _instance = new Context(logfile_name, float_precision, float_comparison_tolerance);
+    _instance = new Context(logfile_name, float_precision, float_comparison_tolerance, is_quiet_mode);
     return _instance;
 }
 
@@ -44,9 +45,10 @@ Context* Context::get_instance() {
     return _instance;
 }
 
-Context::Context(const std::string& logfile_name, int float_precision, float float_comparison_tolerance) :
-    _float_precision(float_precision),
-    _float_comparison_tolerance(float_comparison_tolerance) {
+Context::Context(const std::string& logfile_name, int float_precision, float float_comparison_tolerance,
+                 bool is_quiet_mode) : _float_precision(float_precision),
+                                       _float_comparison_tolerance(float_comparison_tolerance),
+                                       _is_quiet_mode(is_quiet_mode) {
     if (logfile_name != "")
         _logfile.open(logfile_name, std::ios::out | std::ios::app);
 }
@@ -161,7 +163,7 @@ std::string Context::execute(const std::string& input, std::shared_ptr<Session> 
     strftime(timestamp, sizeof(timestamp), "[%F %T]", localtime(&now));
     if (_logfile.is_open())
         _logfile << timestamp << " " << str_utils::trim(input) << " -> " << output << std::endl;
-    else
+    else if (!_is_quiet_mode)
         std::cout << timestamp << " " << str_utils::trim(input) << " -> " << output << std::endl;
     return output;
 }

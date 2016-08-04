@@ -45,10 +45,11 @@ private:
     std::ofstream _logfile;
     int _float_precision;
     float _float_comparison_tolerance;
+    bool _is_quiet_mode;
     std::map<std::string, std::shared_ptr<Object>> _variables;
 
     // Constructor:
-    Context(const std::string& logfile_name, int float_precision, float float_comparison_tolerance);
+    Context(const std::string& logfile_name, int float_precision, float float_comparison_tolerance, bool is_quiet_mode);
 
     // Input processing methods:
     std::string execute_in_type(const Parser& parser);
@@ -71,7 +72,7 @@ private:
 public:
     // Singleton getter:
     static Context* get_instance(const std::string& logfile_name, int float_precision,
-                                 float float_comparison_tolerance);
+                                 float float_comparison_tolerance, bool is_quiet_mode);
     static Context* get_instance();
 
     // Destructor:

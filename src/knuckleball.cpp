@@ -39,6 +39,7 @@ int main(int argc, char* argv[]) {
     boost::program_options::options_description description("Options");
     description.add_options()
         ("help,h", "print usage message")
+        ("quiet,q", "quiet mode")
         ("bind", boost::program_options::value<std::string>()->default_value("0.0.0.0"), "server ip")
         ("port,p", boost::program_options::value<int>()->required(), "server port number")
         ("password", boost::program_options::value<std::string>()->default_value(""), "server password")
@@ -65,7 +66,7 @@ int main(int argc, char* argv[]) {
     std::cout << "PID: " << pid << std::endl;
     std::cout << std::endl;
     Context::get_instance(vmap["logfile"].as<std::string>(), vmap["floatprecision"].as<int>(),
-                          vmap["floatcomparisontolerance"].as<float>());
+                          vmap["floatcomparisontolerance"].as<float>(), vmap.count("quiet") > 0 ? true : false);
     Server::get_instance(vmap["bind"].as<std::string>(), vmap["port"].as<int>(),
                          vmap["password"].as<std::string>())->run();
     return EXIT_FAILURE;
