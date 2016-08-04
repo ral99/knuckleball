@@ -175,7 +175,7 @@ std::string Context::op_listNamespaces(const std::vector<std::string>& arguments
         throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
     std::set<std::string> namespaces;
     for (auto it = _variables.begin(); it != _variables.end(); it++)
-        for (int i = 0; i < it->first.size() - 1; i++)
+        for (int i = 0; i < int(it->first.size()) - 1; i++)
             if (it->first[i] == ':' && it->first[i + 1] == ':')
                 namespaces.insert(it->first.substr(0, i));
     std::string elements_str;
