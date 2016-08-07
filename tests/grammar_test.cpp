@@ -359,6 +359,7 @@ TEST(Grammar, is_not_context) {
 }
 
 TEST(Grammar, is_reserverd_word) {
+    EXPECT_TRUE(Grammar::is_reserved_word("null"));
     EXPECT_TRUE(Grammar::is_reserved_word("true"));
     EXPECT_TRUE(Grammar::is_reserved_word("false"));
     EXPECT_TRUE(Grammar::is_reserved_word("Connection"));
@@ -391,6 +392,7 @@ TEST(Grammar, is_identifier) {
 
 TEST(Grammar, is_not_identifier) {
     EXPECT_FALSE(Grammar::is_identifier(""));
+    EXPECT_FALSE(Grammar::is_identifier("null"));
     EXPECT_FALSE(Grammar::is_identifier("true"));
     EXPECT_FALSE(Grammar::is_identifier("false"));
     EXPECT_FALSE(Grammar::is_identifier("Connection"));
@@ -418,6 +420,7 @@ TEST(Grammar, is_namespace) {
 
 TEST(Grammar, is_not_namespace) {
     EXPECT_FALSE(Grammar::is_namespace(""));
+    EXPECT_FALSE(Grammar::is_namespace("null"));
     EXPECT_FALSE(Grammar::is_namespace("true"));
     EXPECT_FALSE(Grammar::is_namespace("false"));
     EXPECT_FALSE(Grammar::is_namespace("Connection"));
@@ -450,6 +453,7 @@ TEST(Grammar, is_variable) {
 
 TEST(Grammar, is_not_variable) {
     EXPECT_FALSE(Grammar::is_variable(""));
+    EXPECT_FALSE(Grammar::is_variable("null"));
     EXPECT_FALSE(Grammar::is_variable("true"));
     EXPECT_FALSE(Grammar::is_variable("false"));
     EXPECT_FALSE(Grammar::is_variable("Connection"));

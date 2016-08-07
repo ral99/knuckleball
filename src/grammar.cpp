@@ -27,6 +27,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "str_utils.h"
 
 std::set<std::string> Grammar::RESERVED_WORDS {
+    "null",
     "true",
     "false",
     "Connection",

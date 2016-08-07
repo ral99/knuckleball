@@ -49,8 +49,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // <type> --> <primitive-type> | <vector-type> | <set-type> | <dictionary-type>
 // <connection> --> Connection
 // <context> --> Context
-// <reserved-word> --> true | false | Connection | Context | Boolean | Character | Integer | Float | String | Vector |
-//                     Set | Dictionary
+// <reserved-word> --> null | true | false | Connection | Context | Boolean | Character | Integer | Float | String |
+//                     Vector | Set | Dictionary
 // <identifier> --> [a-zA-Z][a-zA-Z0-9_]* - <reserved_word>
 // <namespace> --> <identifier>
 // <variable> --> (<namespace>::)?<identifier>
