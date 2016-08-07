@@ -93,7 +93,7 @@ std::string Session::receive(const std::string& message_name, const std::vector<
         _is_connected = false;
         return "null";
     }
-    if (message_name == "authenticate:") {
+    if (message_name == "authenticateWithPassword:") {
         if (arguments.size() != 1)
             throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
         if (!Grammar::is_string_value(arguments[0]))
