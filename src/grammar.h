@@ -36,9 +36,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // <character-type> --> Character
 // <character-value> --> '.'
 // <integer-type> --> Integer
-// <integer-value> --> [\+-]?[0-9]+
+// <integer-value> --> [\+\-]?[0-9]+
 // <float-type> --> Float
-// <float-value> --> [\+-]?([0-9]+ | [0-9]*\.[0-9]+ | [0-9]+\.[0-9]*)(e<integer-value>)?
+// <float-value> --> [\+\-]?([0-9]+ | [0-9]*\.[0-9]+ | [0-9]+\.[0-9]*)(e<integer-value>)?
 // <string-type> --> String
 // <string-value> --> ".*"
 // <object-type> --> <boolean-type> | <character-type> | <integer-type> | <float-type> | <string-type>
