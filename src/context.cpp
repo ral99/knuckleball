@@ -76,35 +76,35 @@ void Context::set_float_comparison_tolerance(float float_comparison_tolerance) {
 }
 
 std::string Context::execute_in_type(const Parser& parser) {
-    std::shared_ptr<Instance> variable;
+    std::shared_ptr<Instance> instance;
     std::string type = str_utils::remove_spaces(parser.actor());
     std::string message_name = parser.message_name();
     if (type == "Boolean")
-        variable = std::make_shared<BooleanInstance>(message_name, parser.arguments());
+        instance = std::make_shared<BooleanInstance>(message_name, parser.arguments());
     else if (type == "Character")
-        variable = std::make_shared<CharacterInstance>(message_name, parser.arguments());
+        instance = std::make_shared<CharacterInstance>(message_name, parser.arguments());
     else if (type == "Integer")
-        variable = std::make_shared<IntegerInstance>(message_name, parser.arguments());
+        instance = std::make_shared<IntegerInstance>(message_name, parser.arguments());
     else if (type == "Float")
-        variable = std::make_shared<FloatInstance>(message_name, parser.arguments());
+        instance = std::make_shared<FloatInstance>(message_name, parser.arguments());
     else if (type == "String")
-        variable = std::make_shared<StringInstance>(message_name, parser.arguments());
+        instance = std::make_shared<StringInstance>(message_name, parser.arguments());
     else if (str_utils::starts_with(type, "Vector"))
-        variable = std::make_shared<VectorInstance>(type.substr(7, int(type.size()) - 8), message_name,
+        instance = std::make_shared<VectorInstance>(type.substr(7, int(type.size()) - 8), message_name,
                                                     parser.arguments());
     else if (str_utils::starts_with(type, "Set"))
-        variable = std::make_shared<SetInstance>(type.substr(4, int(type.size()) - 5), message_name,
+        instance = std::make_shared<SetInstance>(type.substr(4, int(type.size()) - 5), message_name,
                                                  parser.arguments());
     else if (str_utils::starts_with(type, "Dictionary")) {
         std::string types_of_dictionary = type.substr(11, int(type.size()) - 12);
         for (int i = 0; i < int(types_of_dictionary.size()); i++)
             if (types_of_dictionary[i] == ',')
-                variable = std::make_shared<DictionaryInstance>(types_of_dictionary.substr(0, i),
+                instance = std::make_shared<DictionaryInstance>(types_of_dictionary.substr(0, i),
                                                                 types_of_dictionary.substr(i + 1),
                                                                 message_name, parser.arguments());
     }
-    if (_variables.find(variable->name()) == _variables.end()) {
-        _variables[variable->name()] = variable;
+    if (_instances.find(instance->name()) == _instances.end()) {
+        _instances[instance->name()] = instance;
         return "null";
     }
     if (str_utils::starts_with(message_name, "createIfNotExists:"))
@@ -136,10 +136,10 @@ std::string Context::execute_in_context(const Parser& parser) {
 }
 
 std::string Context::execute_in_variable(const Parser& parser) {
-    auto variable = _variables.find(parser.actor());
-    if (variable == _variables.end())
+    auto instance = _instances.find(parser.actor());
+    if (instance == _instances.end())
         throw EXC_UNEXISTENT_VARIABLE;
-    return variable->second->receive(parser.message_name(), parser.arguments());
+    return instance->second->receive(parser.message_name(), parser.arguments());
 }
 
 std::string Context::execute(const std::string& input, std::shared_ptr<Session> session) {
@@ -176,7 +176,7 @@ std::string Context::op_listNamespaces(const std::vector<std::string>& arguments
     if (arguments.size() != 0)
         throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
     std::set<std::string> namespaces;
-    for (auto it = _variables.begin(); it != _variables.end(); it++)
+    for (auto it = _instances.begin(); it != _instances.end(); it++)
         for (int i = 0; i < int(it->first.size()) - 1; i++)
             if (it->first[i] == ':' && it->first[i + 1] == ':')
                 namespaces.insert(it->first.substr(0, i));
@@ -193,8 +193,8 @@ std::string Context::op_listVariables(const std::vector<std::string>& arguments)
     if (arguments.size() != 0)
         throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
     std::string elements_str;
-    for (auto it = _variables.begin(); it != _variables.end(); it++) {
-        if (it != _variables.begin())
+    for (auto it = _instances.begin(); it != _instances.end(); it++) {
+        if (it != _instances.begin())
             elements_str += ",";
         elements_str += it->first;
     }
@@ -207,7 +207,7 @@ std::string Context::op_listVariablesOfNamespace(const std::vector<std::string>&
     if (!Grammar::is_namespace(arguments[0]))
         throw EXC_INVALID_ARGUMENT;
     std::string elements_str;
-    for (auto it = _variables.begin(); it != _variables.end(); it++) {
+    for (auto it = _instances.begin(); it != _instances.end(); it++) {
         if (!str_utils::starts_with(it->first, arguments[0] + "::"))
             continue;
         if (elements_str.size() > 0)
@@ -222,9 +222,9 @@ std::string Context::op_deleteVariable(const std::vector<std::string>& arguments
         throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
     if (!Grammar::is_variable(arguments[0]))
         throw EXC_INVALID_ARGUMENT;
-    for (auto it = _variables.begin(); it != _variables.end(); it++)
+    for (auto it = _instances.begin(); it != _instances.end(); it++)
         if (it->first == arguments[0]) {
-            _variables.erase(it);
+            _instances.erase(it);
             return "null";
         }
     throw EXC_UNEXISTENT_VARIABLE;
@@ -235,12 +235,12 @@ std::string Context::op_deleteVariablesOfNamespace(const std::vector<std::string
         throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
     if (!Grammar::is_namespace(arguments[0]))
         throw EXC_INVALID_ARGUMENT;
-    std::vector<std::map<std::string, std::shared_ptr<Instance>>::iterator> variables_to_be_deleted;
-    for (auto it = _variables.begin(); it != _variables.end(); it++)
+    std::vector<std::map<std::string, std::shared_ptr<Instance>>::iterator> instances_to_be_deleted;
+    for (auto it = _instances.begin(); it != _instances.end(); it++)
         if (str_utils::starts_with(it->first, arguments[0] + "::"))
-            variables_to_be_deleted.push_back(it);
-    for (auto it = variables_to_be_deleted.begin(); it != variables_to_be_deleted.end(); it++)
-        _variables.erase(*it);
+            instances_to_be_deleted.push_back(it);
+    for (auto it = instances_to_be_deleted.begin(); it != instances_to_be_deleted.end(); it++)
+        _instances.erase(*it);
     return "null";
 }
 

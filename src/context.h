@@ -46,7 +46,7 @@ private:
     int _float_precision;
     float _float_comparison_tolerance;
     bool _is_quiet_mode;
-    std::map<std::string, std::shared_ptr<Instance>> _variables;
+    std::map<std::string, std::shared_ptr<Instance>> _instances;
 
     // Constructor:
     Context(const std::string& logfile_name, int float_precision, float float_comparison_tolerance, bool is_quiet_mode);
