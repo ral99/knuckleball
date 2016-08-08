@@ -76,30 +76,32 @@ void Context::set_float_comparison_tolerance(float float_comparison_tolerance) {
 }
 
 std::string Context::execute_in_type(const Parser& parser) {
-    std::shared_ptr<Object> variable;
+    std::shared_ptr<Instance> variable;
     std::string type = str_utils::remove_spaces(parser.actor());
     std::string message_name = parser.message_name();
     if (type == "Boolean")
-        variable = std::make_shared<Boolean>(message_name, parser.arguments());
+        variable = std::make_shared<BooleanInstance>(message_name, parser.arguments());
     else if (type == "Character")
-        variable = std::make_shared<Character>(message_name, parser.arguments());
+        variable = std::make_shared<CharacterInstance>(message_name, parser.arguments());
     else if (type == "Integer")
-        variable = std::make_shared<Integer>(message_name, parser.arguments());
+        variable = std::make_shared<IntegerInstance>(message_name, parser.arguments());
     else if (type == "Float")
-        variable = std::make_shared<Float>(message_name, parser.arguments());
+        variable = std::make_shared<FloatInstance>(message_name, parser.arguments());
     else if (type == "String")
-        variable = std::make_shared<String>(message_name, parser.arguments());
+        variable = std::make_shared<StringInstance>(message_name, parser.arguments());
     else if (str_utils::starts_with(type, "Vector"))
-        variable = std::make_shared<Vector>(type.substr(7, int(type.size()) - 8), message_name, parser.arguments());
+        variable = std::make_shared<VectorInstance>(type.substr(7, int(type.size()) - 8), message_name,
+                                                    parser.arguments());
     else if (str_utils::starts_with(type, "Set"))
-        variable = std::make_shared<Set>(type.substr(4, int(type.size()) - 5), message_name, parser.arguments());
+        variable = std::make_shared<SetInstance>(type.substr(4, int(type.size()) - 5), message_name,
+                                                 parser.arguments());
     else if (str_utils::starts_with(type, "Dictionary")) {
         std::string types_of_dictionary = type.substr(11, int(type.size()) - 12);
         for (int i = 0; i < int(types_of_dictionary.size()); i++)
             if (types_of_dictionary[i] == ',')
-                variable = std::make_shared<Dictionary>(types_of_dictionary.substr(0, i),
-                                                        types_of_dictionary.substr(i + 1),
-                                                        message_name, parser.arguments());
+                variable = std::make_shared<DictionaryInstance>(types_of_dictionary.substr(0, i),
+                                                                types_of_dictionary.substr(i + 1),
+                                                                message_name, parser.arguments());
     }
     if (_variables.find(variable->name()) == _variables.end()) {
         _variables[variable->name()] = variable;
@@ -233,7 +235,7 @@ std::string Context::op_deleteVariablesOfNamespace(const std::vector<std::string
         throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
     if (!Grammar::is_namespace(arguments[0]))
         throw EXC_INVALID_ARGUMENT;
-    std::vector<std::map<std::string, std::shared_ptr<Object>>::iterator> variables_to_be_deleted;
+    std::vector<std::map<std::string, std::shared_ptr<Instance>>::iterator> variables_to_be_deleted;
     for (auto it = _variables.begin(); it != _variables.end(); it++)
         if (str_utils::starts_with(it->first, arguments[0] + "::"))
             variables_to_be_deleted.push_back(it);
@@ -243,13 +245,13 @@ std::string Context::op_deleteVariablesOfNamespace(const std::vector<std::string
 }
 
 std::string Context::op_getFloatPrecision(const std::vector<std::string>& arguments) {
-    return Integer(_float_precision).representation();
+    return IntegerInstance(_float_precision).representation();
 }
 
 std::string Context::op_setFloatPrecision(const std::vector<std::string>& arguments) {
     if (arguments.size() != 1)
         throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
-    int float_precision = Integer(arguments[0]).value();
+    int float_precision = IntegerInstance(arguments[0]).value();
     if (float_precision <= 0)
         throw EXC_INVALID_ARGUMENT;
     _float_precision = float_precision;
@@ -257,13 +259,13 @@ std::string Context::op_setFloatPrecision(const std::vector<std::string>& argume
 }
 
 std::string Context::op_getFloatComparisonTolerance(const std::vector<std::string>& arguments) {
-    return Float(_float_comparison_tolerance).representation();
+    return FloatInstance(_float_comparison_tolerance).representation();
 }
 
 std::string Context::op_setFloatComparisonTolerance(const std::vector<std::string>& arguments) {
     if (arguments.size() != 1)
         throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
-    float float_comparison_tolerance = Float(arguments[0]).value();
+    float float_comparison_tolerance = FloatInstance(arguments[0]).value();
     if (float_comparison_tolerance < 0)
         throw EXC_INVALID_ARGUMENT;
     _float_comparison_tolerance = float_comparison_tolerance;

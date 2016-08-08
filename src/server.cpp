@@ -98,7 +98,7 @@ std::string Session::receive(const std::string& message_name, const std::vector<
             throw EXC_WRONG_NUMBER_OF_ARGUMENTS;
         if (!Grammar::is_string_value(arguments[0]))
             throw EXC_INVALID_ARGUMENT;
-        if (String(arguments[0]).value() == Server::get_instance()->get_password()) {
+        if (StringInstance(arguments[0]).value() == Server::get_instance()->get_password()) {
             _is_authenticated = true;
             return "null";
         }

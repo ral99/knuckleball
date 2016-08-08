@@ -23,8 +23,8 @@ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWIS
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef __OBJECT__
-#define __OBJECT__
+#ifndef __INSTANCE__
+#define __INSTANCE__
 
 #include <map>
 #include <memory>
@@ -32,17 +32,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <vector>
 
-class Object : public std::enable_shared_from_this<Object> {
+class Instance : public std::enable_shared_from_this<Instance> {
 protected:
     // Attributes:
     std::string _type;
     std::string _name;
     
     // Constructor:
-    Object(const std::string& type);
+    Instance(const std::string& type);
 public:
     // Virtual destructor:
-    virtual ~Object();
+    virtual ~Instance();
 
     // Getter methods:
     std::string type() const;
@@ -53,37 +53,37 @@ public:
     virtual std::string receive(const std::string& message_name, const std::vector<std::string>& arguments) = 0;
 };
 
-class ObjectIsEqualToComparator {
+class InstanceIsEqualToComparator {
 public:
-    // Functor to compare two Objects.
-    bool operator()(const std::shared_ptr<Object>& lhs, const std::shared_ptr<Object>& rhs) const;
+    // Functor to compare two Instances.
+    bool operator()(const std::shared_ptr<Instance>& lhs, const std::shared_ptr<Instance>& rhs) const;
 };
 
-class ObjectIsLessThanComparator {
+class InstanceIsLessThanComparator {
 public:
-    // Functor to compare two Objects.
-    bool operator()(const std::shared_ptr<Object>& lhs, const std::shared_ptr<Object>& rhs) const;
+    // Functor to compare two Instances.
+    bool operator()(const std::shared_ptr<Instance>& lhs, const std::shared_ptr<Instance>& rhs) const;
 };
 
-class ObjectIsLessThanOrEqualToComparator {
+class InstanceIsLessThanOrEqualToComparator {
 public:
-    // Functor to compare two Objects.
-    bool operator()(const std::shared_ptr<Object>& lhs, const std::shared_ptr<Object>& rhs) const;
+    // Functor to compare two Instances.
+    bool operator()(const std::shared_ptr<Instance>& lhs, const std::shared_ptr<Instance>& rhs) const;
 };
 
-class ObjectIsGreaterThanComparator {
+class InstanceIsGreaterThanComparator {
 public:
-    // Functor to compare two Objects.
-    bool operator()(const std::shared_ptr<Object>& lhs, const std::shared_ptr<Object>& rhs) const;
+    // Functor to compare two Instances.
+    bool operator()(const std::shared_ptr<Instance>& lhs, const std::shared_ptr<Instance>& rhs) const;
 };
 
-class ObjectIsGreaterThanOrEqualToComparator {
+class InstanceIsGreaterThanOrEqualToComparator {
 public:
-    // Functor to compare two Objects.
-    bool operator()(const std::shared_ptr<Object>& lhs, const std::shared_ptr<Object>& rhs) const;
+    // Functor to compare two Instances.
+    bool operator()(const std::shared_ptr<Instance>& lhs, const std::shared_ptr<Instance>& rhs) const;
 };
 
-class Boolean: public Object {
+class BooleanInstance: public Instance {
 private:
     // Attributes:
     bool _value;
@@ -95,11 +95,11 @@ private:
     std::string op_isFalse(const std::vector<std::string>& arguments);
 public:
     // Constructors:
-    Boolean(const std::string& value);
-    Boolean(const std::string& message_name, const std::vector<std::string>& arguments);
+    BooleanInstance(const std::string& value);
+    BooleanInstance(const std::string& message_name, const std::vector<std::string>& arguments);
 
     // Virtual destructor:
-    virtual ~Boolean();
+    virtual ~BooleanInstance();
 
     // Getter method:
     bool value() const;
@@ -109,7 +109,7 @@ public:
     virtual std::string receive(const std::string& message_name, const std::vector<std::string>& arguments);
 };
 
-class Character: public Object {
+class CharacterInstance: public Instance {
 private:
     // Attributes:
     char _value;
@@ -128,11 +128,11 @@ private:
     std::string op_isGreaterThanOrEqualTo(const std::vector<std::string>& arguments);
 public:
     // Constructors:
-    Character(const std::string& value);
-    Character(const std::string& message_name, const std::vector<std::string>& arguments);
+    CharacterInstance(const std::string& value);
+    CharacterInstance(const std::string& message_name, const std::vector<std::string>& arguments);
 
     // Virtual destructor:
-    virtual ~Character();
+    virtual ~CharacterInstance();
 
     // Getter method:
     char value() const;
@@ -142,7 +142,7 @@ public:
     virtual std::string receive(const std::string& message_name, const std::vector<std::string>& arguments);
 };
 
-class Integer: public Object {
+class IntegerInstance: public Instance {
 private:
     // Attributes:
     int _value;
@@ -161,12 +161,12 @@ private:
     std::string op_divideBy(const std::vector<std::string>& arguments);
 public:
     // Constructors:
-    Integer(int value);
-    Integer(const std::string& value);
-    Integer(const std::string& message_name, const std::vector<std::string>& arguments);
+    IntegerInstance(int value);
+    IntegerInstance(const std::string& value);
+    IntegerInstance(const std::string& message_name, const std::vector<std::string>& arguments);
 
     // Virtual destructor:
-    virtual ~Integer();
+    virtual ~IntegerInstance();
 
     // Getter method:
     int value() const;
@@ -176,7 +176,7 @@ public:
     virtual std::string receive(const std::string& message_name, const std::vector<std::string>& arguments);
 };
 
-class Float: public Object {
+class FloatInstance: public Instance {
 private:
     // Attributes:
     float _value;
@@ -195,12 +195,12 @@ private:
     std::string op_divideBy(const std::vector<std::string>& arguments);
 public:
     // Constructors:
-    Float(float value);
-    Float(const std::string& value);
-    Float(const std::string& message_name, const std::vector<std::string>& arguments);
+    FloatInstance(float value);
+    FloatInstance(const std::string& value);
+    FloatInstance(const std::string& message_name, const std::vector<std::string>& arguments);
 
     // Virtual destructor:
-    virtual ~Float();
+    virtual ~FloatInstance();
 
     // Getter method:
     float value() const;
@@ -210,7 +210,7 @@ public:
     virtual std::string receive(const std::string& message_name, const std::vector<std::string>& arguments);
 };
 
-class String: public Object {
+class StringInstance: public Instance {
 private:
     // Attributes:
     std::string _value;
@@ -244,11 +244,11 @@ private:
     std::string op_clear(const std::vector<std::string>& arguments);
 public:
     // Constructors:
-    String(const std::string& value);
-    String(const std::string& message_name, const std::vector<std::string>& arguments);
+    StringInstance(const std::string& value);
+    StringInstance(const std::string& message_name, const std::vector<std::string>& arguments);
 
     // Virtual destructor:
-    virtual ~String();
+    virtual ~StringInstance();
 
     // Getter method:
     std::string value() const;
@@ -258,11 +258,11 @@ public:
     virtual std::string receive(const std::string& message_name, const std::vector<std::string>& arguments);
 };
 
-class Vector: public Object {
+class VectorInstance: public Instance {
 private:
     // Attributes:
     std::string _element_type;
-    std::vector<std::shared_ptr<Object>> _value;
+    std::vector<std::shared_ptr<Instance>> _value;
 
     // Operators:
     std::string op_get(const std::vector<std::string>& arguments);
@@ -298,21 +298,22 @@ private:
     std::string op_clear(const std::vector<std::string>& arguments);
 public:
     // Constructor:
-    Vector(const std::string& element_type, const std::string& message_name, const std::vector<std::string>& arguments);
+    VectorInstance(const std::string& element_type, const std::string& message_name,
+                   const std::vector<std::string>& arguments);
 
     // Virtual destructor:
-    virtual ~Vector();
+    virtual ~VectorInstance();
 
     // Implementation of pure virtual methods:
     virtual std::string representation() const;
     virtual std::string receive(const std::string& message_name, const std::vector<std::string>& arguments);
 };
 
-class Set: public Object {
+class SetInstance: public Instance {
 private:
     // Attributes:
     std::string _element_type;
-    std::set<std::shared_ptr<Object>, ObjectIsLessThanComparator> _value;
+    std::set<std::shared_ptr<Instance>, InstanceIsLessThanComparator> _value;
 
     // Operators:
     std::string op_get(const std::vector<std::string>& arguments);
@@ -324,21 +325,22 @@ private:
     std::string op_clear(const std::vector<std::string>& arguments);
 public:
     // Constructor:
-    Set(const std::string& element_type, const std::string& message_name, const std::vector<std::string>& arguments);
+    SetInstance(const std::string& element_type, const std::string& message_name,
+                const std::vector<std::string>& arguments);
 
     // Virtual destructor:
-    virtual ~Set();
+    virtual ~SetInstance();
 
     // Implementation of pure virtual methods:
     virtual std::string representation() const;
     virtual std::string receive(const std::string& message_name, const std::vector<std::string>& arguments);
 };
 
-class Dictionary: public Object {
+class DictionaryInstance: public Instance {
 private:
     // Attributes:
     std::string _key_type, _value_type;
-    std::map<std::shared_ptr<Object>, std::shared_ptr<Object>, ObjectIsLessThanComparator> _value;
+    std::map<std::shared_ptr<Instance>, std::shared_ptr<Instance>, InstanceIsLessThanComparator> _value;
 
     // Operators:
     std::string op_get(const std::vector<std::string>& arguments);
@@ -353,11 +355,11 @@ private:
     std::string op_clear(const std::vector<std::string>& arguments);
 public:
     // Constructor:
-    Dictionary(const std::string& key_type, const std::string& value_type, const std::string& message_name,
-               const std::vector<std::string>& arguments);
+    DictionaryInstance(const std::string& key_type, const std::string& value_type, const std::string& message_name,
+                       const std::vector<std::string>& arguments);
 
     // Virtual destructor:
-    virtual ~Dictionary();
+    virtual ~DictionaryInstance();
 
     // Implementation of pure virtual methods:
     virtual std::string representation() const;

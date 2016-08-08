@@ -1246,7 +1246,7 @@ TEST_F(ContextTest, Dictionary_clear) {
 
 ///////////////////////////////////////////////////// Syntax errors ////////////////////////////////////////////////////
 
-TEST_F(ContextTest, SyntaxError_for_invalid_object) {
+TEST_F(ContextTest, SyntaxError_for_invalid_actor) {
     EXPECT_EQ(context->execute("_prices get;"), EXC_INVALID_STATEMENT);
     EXPECT_EQ(context->execute("2016prices get;"), EXC_INVALID_STATEMENT);
     EXPECT_EQ(context->execute("42 get;"), EXC_INVALID_STATEMENT);
@@ -1266,7 +1266,7 @@ TEST_F(ContextTest, SyntaxError_for_multiple_arguments) {
     EXPECT_EQ(context->execute("Boolean create: t withValue: true false;"), EXC_INVALID_STATEMENT);
 }
 
-TEST_F(ContextTest, SyntaxError_for_missing_object) {
+TEST_F(ContextTest, SyntaxError_for_missing_actor) {
     EXPECT_EQ(context->execute("get;"), EXC_INVALID_STATEMENT);
     EXPECT_EQ(context->execute("create: t withValue: true;"), EXC_INVALID_STATEMENT);
 }
