@@ -27,6 +27,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <exception>
 #include <iostream>
 #include <string>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include <boost/program_options.hpp>
 
