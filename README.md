@@ -98,7 +98,7 @@ ERAs get;
 ## Reference
 Types are divided into:
 * **Objects**: [Booleans](#boolean), [Characters](#character), [Integers](#integer), [Floats](#float) and [Strings](#string).
-* **Collections**: strongly typed [Vectors](#vector), [Sets](#set) and [Dictionaries](#dictionaryare) of **Objects**.
+* **Containers**: strongly typed [Vectors](#vector), [Sets](#set) and [Dictionaries](#dictionaryare) of **Objects**.
 
 ### Boolean
 Booleans are objects that can only represent one of two states: `true` or `false`.
