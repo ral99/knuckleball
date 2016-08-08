@@ -26,7 +26,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "gtest/gtest.h"
 
 #include "context.h"
-#include "object.h"
+#include "instance.h"
 
 class InstanceTest: public ::testing::Test {
 protected:

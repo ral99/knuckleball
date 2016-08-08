@@ -37,9 +37,9 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
 # List files
-set(HEADERS src/context.h src/exceptions.h src/grammar.h src/object.h src/parser.h src/server.h src/str_utils.h)
-set(SOURCES src/context.cpp src/grammar.cpp src/object.cpp src/parser.cpp src/server.cpp src/str_utils.cpp)
-set(UNIT_TESTS tests/context_test.cpp tests/grammar_test.cpp tests/object_test.cpp tests/parser_test.cpp
+set(HEADERS src/context.h src/exceptions.h src/grammar.h src/instance.h src/parser.h src/server.h src/str_utils.h)
+set(SOURCES src/context.cpp src/grammar.cpp src/instance.cpp src/parser.cpp src/server.cpp src/str_utils.cpp)
+set(UNIT_TESTS tests/context_test.cpp tests/grammar_test.cpp tests/instance_test.cpp tests/parser_test.cpp
                tests/str_utils_test.cpp)
 
 # Unit tests

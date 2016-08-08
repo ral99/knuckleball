@@ -29,7 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "context.h"
 #include "exceptions.h"
 #include "grammar.h"
-#include "object.h"
+#include "instance.h"
 #include "server.h"
 #include "str_utils.h"
 
