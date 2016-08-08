@@ -34,9 +34,9 @@ Parser::Parser(const std::string& input) {
     int i = 0;
     std::string trimmed_input = str_utils::trim(input);
     trimmed_input = str_utils::rtrim(trimmed_input.substr(0, int(trimmed_input.size()) - 1));
-    while (!str_utils::is_space(trimmed_input[i]) || !Grammar::is_object(trimmed_input.substr(0, i)))
+    while (!str_utils::is_space(trimmed_input[i]) || !Grammar::is_actor(trimmed_input.substr(0, i)))
         i++;
-    _object = trimmed_input.substr(0, i);
+    _actor = trimmed_input.substr(0, i);
     std::string message = str_utils::ltrim(trimmed_input.substr(i + 1));
     if (Grammar::is_unary_message(message))
         _message_name = message;
@@ -60,8 +60,8 @@ Parser::Parser(const std::string& input) {
     }
 }
 
-std::string Parser::object() const {
-    return _object;
+std::string Parser::actor() const {
+    return _actor;
 }
 
 std::string Parser::message_name() const {

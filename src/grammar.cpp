@@ -199,7 +199,7 @@ bool Grammar::is_variable(const std::string& str) {
     return is_identifier(str);
 }
 
-bool Grammar::is_object(const std::string& str) {
+bool Grammar::is_actor(const std::string& str) {
     return is_connection(str) || is_context(str) || is_type(str) || is_variable(str);
 }
 
@@ -241,10 +241,9 @@ bool Grammar::is_statement(const std::string& str) {
         return false;
     trimmed_str = str_utils::rtrim(trimmed_str.substr(0, int(trimmed_str.size()) - 1));
     for (int i = 0; i < int(trimmed_str.size()); i++)
-        if (str_utils::is_space(trimmed_str[i]) && is_object(trimmed_str.substr(0, i))) {
-            std::string object = trimmed_str.substr(0, i);
+        if (str_utils::is_space(trimmed_str[i]) && is_actor(trimmed_str.substr(0, i))) {
             std::string message = str_utils::ltrim(trimmed_str.substr(i + 1));
-            return is_object(object) && (is_unary_message(message) || is_keyword_message(message));
+            return (is_unary_message(message) || is_keyword_message(message));
         }
     return false;
 }

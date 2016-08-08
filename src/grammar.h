@@ -55,13 +55,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // <identifier> --> [a-zA-Z][a-zA-Z0-9_]* - <reserved_word>
 // <namespace> --> <identifier>
 // <variable> --> (<namespace>::)?<identifier>
-// <object> --> <connection> | <context> | <type> | <variable>
+// <actor> --> <connection> | <context> | <type> | <variable>
 // <unary-message> --> <identifier>\??
 // <keyword-message-token> --> <identifier>[:\?]{1}
 // <keyword-message-argument> --> <object-value> | <namespace> | <variable>
 // <keyword-message-part> --> <keyword-message-token><spaces><keyword-message-argument>
 // <keyword-message> --> <keyword-message-part>(\s<spaces><keyword-message>)?
-// <statement> --> <spaces><object>\s<spaces>(<unary-message> | <keyword-message>)<spaces>;<spaces>
+// <statement> --> <spaces><actor>\s<spaces>(<unary-message> | <keyword-message>)<spaces>;<spaces>
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -145,8 +145,8 @@ bool is_namespace(const std::string& str);
 // Grammar rule for <variable>.
 bool is_variable(const std::string& str);
 
-// Grammar rule for <object>.
-bool is_object(const std::string& str);
+// Grammar rule for <actor>.
+bool is_actor(const std::string& str);
 
 // Grammar rule for <unary-message>.
 bool is_unary_message(const std::string& str);

@@ -115,14 +115,14 @@ void Session::do_read() {
                     std::istream istream(&_streambuf);
                     std::string input;
                     std::getline(istream, input);
-                    std::string object;
+                    std::string actor;
                     try {
                         Parser parser(input);
-                        object = parser.object();
+                        actor = parser.actor();
                     }
                     catch (...) {
                     }
-                    if (_is_authenticated || Grammar::is_connection(object)) {
+                    if (_is_authenticated || Grammar::is_connection(actor)) {
                         std::string output = Context::get_instance()->execute(input, self);
                         if (_is_connected)
                             do_write(output);

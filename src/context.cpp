@@ -77,7 +77,7 @@ void Context::set_float_comparison_tolerance(float float_comparison_tolerance) {
 
 std::string Context::execute_in_type(const Parser& parser) {
     std::shared_ptr<Object> variable;
-    std::string type = str_utils::remove_spaces(parser.object());
+    std::string type = str_utils::remove_spaces(parser.actor());
     std::string message_name = parser.message_name();
     if (type == "Boolean")
         variable = std::make_shared<Boolean>(message_name, parser.arguments());
@@ -134,7 +134,7 @@ std::string Context::execute_in_context(const Parser& parser) {
 }
 
 std::string Context::execute_in_variable(const Parser& parser) {
-    auto variable = _variables.find(parser.object());
+    auto variable = _variables.find(parser.actor());
     if (variable == _variables.end())
         throw EXC_UNEXISTENT_VARIABLE;
     return variable->second->receive(parser.message_name(), parser.arguments());
@@ -144,14 +144,14 @@ std::string Context::execute(const std::string& input, std::shared_ptr<Session> 
     std::string output;
     try {
         Parser parser(input);
-        std::string object = parser.object();
-        if (Grammar::is_type(object))
+        std::string actor = parser.actor();
+        if (Grammar::is_type(actor))
             output = execute_in_type(parser);
-        else if (Grammar::is_context(object))
+        else if (Grammar::is_context(actor))
             output = execute_in_context(parser);
-        else if (Grammar::is_variable(object))
+        else if (Grammar::is_variable(actor))
             output = execute_in_variable(parser);
-        else if (Grammar::is_connection(object))
+        else if (Grammar::is_connection(actor))
             output = session->receive(parser.message_name(), parser.arguments());
     }
     catch (const char* exception) {

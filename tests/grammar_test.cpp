@@ -494,31 +494,31 @@ TEST(Grammar, is_not_variable) {
     EXPECT_FALSE(Grammar::is_variable("prices "));
 }
 
-TEST(Grammar, is_object) {
-    EXPECT_TRUE(Grammar::is_object("Connection"));
-    EXPECT_TRUE(Grammar::is_object("Context"));
-    EXPECT_TRUE(Grammar::is_object("Boolean"));
-    EXPECT_TRUE(Grammar::is_object("Character"));
-    EXPECT_TRUE(Grammar::is_object("Integer"));
-    EXPECT_TRUE(Grammar::is_object("Float"));
-    EXPECT_TRUE(Grammar::is_object("String"));
-    EXPECT_TRUE(Grammar::is_object("Vector<Boolean>"));
-    EXPECT_TRUE(Grammar::is_object("Set<Float>"));
-    EXPECT_TRUE(Grammar::is_object("Dictionary<String, Integer>"));
-    EXPECT_TRUE(Grammar::is_object("prices"));
-    EXPECT_TRUE(Grammar::is_object("prices2016"));
-    EXPECT_TRUE(Grammar::is_object("prices_2016"));
-    EXPECT_TRUE(Grammar::is_object("std::prices"));
-    EXPECT_TRUE(Grammar::is_object("std::prices2016"));
-    EXPECT_TRUE(Grammar::is_object("std::prices_2016"));
+TEST(Grammar, is_actor) {
+    EXPECT_TRUE(Grammar::is_actor("Connection"));
+    EXPECT_TRUE(Grammar::is_actor("Context"));
+    EXPECT_TRUE(Grammar::is_actor("Boolean"));
+    EXPECT_TRUE(Grammar::is_actor("Character"));
+    EXPECT_TRUE(Grammar::is_actor("Integer"));
+    EXPECT_TRUE(Grammar::is_actor("Float"));
+    EXPECT_TRUE(Grammar::is_actor("String"));
+    EXPECT_TRUE(Grammar::is_actor("Vector<Boolean>"));
+    EXPECT_TRUE(Grammar::is_actor("Set<Float>"));
+    EXPECT_TRUE(Grammar::is_actor("Dictionary<String, Integer>"));
+    EXPECT_TRUE(Grammar::is_actor("prices"));
+    EXPECT_TRUE(Grammar::is_actor("prices2016"));
+    EXPECT_TRUE(Grammar::is_actor("prices_2016"));
+    EXPECT_TRUE(Grammar::is_actor("std::prices"));
+    EXPECT_TRUE(Grammar::is_actor("std::prices2016"));
+    EXPECT_TRUE(Grammar::is_actor("std::prices_2016"));
 }
 
-TEST(Grammar, is_not_object) {
-    EXPECT_FALSE(Grammar::is_object(""));
-    EXPECT_FALSE(Grammar::is_object("42"));
-    EXPECT_FALSE(Grammar::is_object("isEmpty?"));
-    EXPECT_FALSE(Grammar::is_object(" prices"));
-    EXPECT_FALSE(Grammar::is_object("prices "));
+TEST(Grammar, is_not_actor) {
+    EXPECT_FALSE(Grammar::is_actor(""));
+    EXPECT_FALSE(Grammar::is_actor("42"));
+    EXPECT_FALSE(Grammar::is_actor("isEmpty?"));
+    EXPECT_FALSE(Grammar::is_actor(" prices"));
+    EXPECT_FALSE(Grammar::is_actor("prices "));
 }
 
 TEST(Grammar, is_unary_message) {

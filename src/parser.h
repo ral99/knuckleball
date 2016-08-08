@@ -32,7 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class Parser {
 private:
     // Attributes:
-    std::string _object;
+    std::string _actor;
     std::string _message_name;
     std::vector<std::string> _arguments;
 public:
@@ -40,7 +40,7 @@ public:
     Parser(const std::string& input);
 
     // Getter methods:
-    std::string object() const;
+    std::string actor() const;
     std::string message_name() const;
     std::vector<std::string> arguments() const;
 };

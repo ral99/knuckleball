@@ -31,91 +31,91 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 TEST(Parser, valid_statement_1) {
     Parser parser("Boolean create: b withValue: true;");
-    EXPECT_EQ(parser.object(), "Boolean");
+    EXPECT_EQ(parser.actor(), "Boolean");
     EXPECT_EQ(parser.message_name(), "create:withValue:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"b", "true"}));
 }
 
 TEST(Parser, valid_statement_2) {
     Parser parser("b get;");
-    EXPECT_EQ(parser.object(), "b");
+    EXPECT_EQ(parser.actor(), "b");
     EXPECT_EQ(parser.message_name(), "get");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({}));
 }
 
 TEST(Parser, valid_statement_3) {
     Parser parser("b isTrue?;");
-    EXPECT_EQ(parser.object(), "b");
+    EXPECT_EQ(parser.actor(), "b");
     EXPECT_EQ(parser.message_name(), "isTrue?");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({}));
 }
 
 TEST(Parser, valid_statement_4) {
     Parser parser("b set: false;");
-    EXPECT_EQ(parser.object(), "b");
+    EXPECT_EQ(parser.actor(), "b");
     EXPECT_EQ(parser.message_name(), "set:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"false"}));
 }
 
 TEST(Parser, valid_statement_5) {
     Parser parser("Character create: numeric withValue: '1';");
-    EXPECT_EQ(parser.object(), "Character");
+    EXPECT_EQ(parser.actor(), "Character");
     EXPECT_EQ(parser.message_name(), "create:withValue:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"numeric", "'1'"}));
 }
 
 TEST(Parser, valid_statement_6) {
     Parser parser("i isEqualTo? -42;");
-    EXPECT_EQ(parser.object(), "i");
+    EXPECT_EQ(parser.actor(), "i");
     EXPECT_EQ(parser.message_name(), "isEqualTo?");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"-42"}));
 }
 
 TEST(Parser, valid_statement_7) {
     Parser parser("Float createIfNotExists: f withValue: -42.0;");
-    EXPECT_EQ(parser.object(), "Float");
+    EXPECT_EQ(parser.actor(), "Float");
     EXPECT_EQ(parser.message_name(), "createIfNotExists:withValue:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"f", "-42.0"}));
 }
 
 TEST(Parser, valid_statement_8) {
     Parser parser("String create: str withValue: \"knuckleball\";");
-    EXPECT_EQ(parser.object(), "String");
+    EXPECT_EQ(parser.actor(), "String");
     EXPECT_EQ(parser.message_name(), "create:withValue:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"str", "\"knuckleball\""}));
 }
 
 TEST(Parser, valid_statement_9) {
     Parser parser("str replaceFirst: \"knuckle\" fromIndex: 0 with: \"ball\";");
-    EXPECT_EQ(parser.object(), "str");
+    EXPECT_EQ(parser.actor(), "str");
     EXPECT_EQ(parser.message_name(), "replaceFirst:fromIndex:with:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"\"knuckle\"", "0", "\"ball\""}));
 }
 
 TEST(Parser, valid_statement_10) {
     Parser parser("Vector<Integer> create: prices;");
-    EXPECT_EQ(parser.object(), "Vector<Integer>");
+    EXPECT_EQ(parser.actor(), "Vector<Integer>");
     EXPECT_EQ(parser.message_name(), "create:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"prices"}));
 }
 
 TEST(Parser, valid_statement_11) {
     Parser parser("Set<String> create: ids;");
-    EXPECT_EQ(parser.object(), "Set<String>");
+    EXPECT_EQ(parser.actor(), "Set<String>");
     EXPECT_EQ(parser.message_name(), "create:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"ids"}));
 }
 
 TEST(Parser, valid_statement_12) {
     Parser parser("Dictionary<String, Integer> create: ages;");
-    EXPECT_EQ(parser.object(), "Dictionary<String, Integer>");
+    EXPECT_EQ(parser.actor(), "Dictionary<String, Integer>");
     EXPECT_EQ(parser.message_name(), "create:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"ages"}));
 }
 
 TEST(Parser, valid_statement_13) {
     Parser parser("Context listVariablesOfNamespace: std;");
-    EXPECT_EQ(parser.object(), "Context");
+    EXPECT_EQ(parser.actor(), "Context");
     EXPECT_EQ(parser.message_name(), "listVariablesOfNamespace:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"std"}));
 }
@@ -124,28 +124,28 @@ TEST(Parser, valid_statement_13) {
 
 TEST(Parser, corner_case_1) {
     Parser parser("  prices  get  ;  ");
-    EXPECT_EQ(parser.object(), "prices");
+    EXPECT_EQ(parser.actor(), "prices");
     EXPECT_EQ(parser.message_name(), "get");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({}));
 }
 
 TEST(Parser, corner_case_2) {
     Parser parser("  Integer  create:  i  withValue:  +42  ;");
-    EXPECT_EQ(parser.object(), "Integer");
+    EXPECT_EQ(parser.actor(), "Integer");
     EXPECT_EQ(parser.message_name(), "create:withValue:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"i", "+42"}));
 }
 
 TEST(Parser, corner_case_3) {
     Parser parser("Integer create:i withValue:-42;");
-    EXPECT_EQ(parser.object(), "Integer");
+    EXPECT_EQ(parser.actor(), "Integer");
     EXPECT_EQ(parser.message_name(), "create:withValue:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"i", "-42"}));
 }
 
 TEST(Parser, corner_case_4) {
     Parser parser("String create: str withValue: \"one two three four\";");
-    EXPECT_EQ(parser.object(), "String");
+    EXPECT_EQ(parser.actor(), "String");
     EXPECT_EQ(parser.message_name(), "create:withValue:");
     EXPECT_EQ(parser.arguments(), std::vector<std::string>({"str", "\"one two three four\""}));
 }
@@ -157,7 +157,7 @@ TEST(Parser, invalid_statements) {
     EXPECT_ANY_THROW(Parser("42;"));
     EXPECT_ANY_THROW(Parser("true;"));
     
-    // invalid object:
+    // invalid actor:
     EXPECT_ANY_THROW(Parser("42 add: 1;"));
     EXPECT_ANY_THROW(Parser("true get;"));
 
@@ -166,7 +166,7 @@ TEST(Parser, invalid_statements) {
     EXPECT_ANY_THROW(Parser("Context;"));
     EXPECT_ANY_THROW(Parser("std::prices;"));
 
-    // missing object:
+    // missing actor:
     EXPECT_ANY_THROW(Parser("create: i withValue: 42;"));
 
     // missing semicolon:
