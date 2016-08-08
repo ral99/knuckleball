@@ -124,12 +124,12 @@ bool Grammar::is_string_value(const std::string& str) {
     return str.size() % 2 == 0;
 }
 
-bool Grammar::is_primitive_type(const std::string& str) {
+bool Grammar::is_object_type(const std::string& str) {
     return is_boolean_type(str) || is_character_type(str) || is_integer_type(str) || is_float_type(str) ||
            is_string_type(str);
 }
 
-bool Grammar::is_primitive_value(const std::string& str) {
+bool Grammar::is_object_value(const std::string& str) {
     return is_boolean_value(str) || is_character_value(str) || is_integer_value(str) || is_float_value(str) ||
            is_string_value(str);
 }
@@ -137,13 +137,13 @@ bool Grammar::is_primitive_value(const std::string& str) {
 bool Grammar::is_vector_type(const std::string& str) {
     if (!str_utils::starts_with(str, "Vector<") || !str_utils::ends_with(str, ">"))
         return false;
-    return is_primitive_type(str_utils::trim(str.substr(7, int(str.size()) - 8)));
+    return is_object_type(str_utils::trim(str.substr(7, int(str.size()) - 8)));
 }
 
 bool Grammar::is_set_type(const std::string& str) {
     if (!str_utils::starts_with(str, "Set<") || !str_utils::ends_with(str, ">"))
         return false;
-    return is_primitive_type(str_utils::trim(str.substr(4, int(str.size()) - 5)));
+    return is_object_type(str_utils::trim(str.substr(4, int(str.size()) - 5)));
 }
 
 bool Grammar::is_dictionary_type(const std::string& str) {
@@ -152,13 +152,17 @@ bool Grammar::is_dictionary_type(const std::string& str) {
     std::string types_of_dictionary = str.substr(11, int(str.size()) - 12);
     for (int i = 0; i < int(types_of_dictionary.size()); i++)
         if (types_of_dictionary[i] == ',')
-            return is_primitive_type(str_utils::trim(types_of_dictionary.substr(0, i))) &&
-                   is_primitive_type(str_utils::trim(types_of_dictionary.substr(i + 1)));
+            return is_object_type(str_utils::trim(types_of_dictionary.substr(0, i))) &&
+                   is_object_type(str_utils::trim(types_of_dictionary.substr(i + 1)));
     return false;
 }
 
+bool Grammar::is_container_type(const std::string& str) {
+    return is_vector_type(str) || is_set_type(str) || is_dictionary_type(str);
+}
+
 bool Grammar::is_type(const std::string& str) {
-    return is_primitive_type(str) || is_vector_type(str) || is_set_type(str) || is_dictionary_type(str);
+    return is_object_type(str) || is_container_type(str);
 }
 
 bool Grammar::is_connection(const std::string& str) {
@@ -210,7 +214,7 @@ bool Grammar::is_keyword_message_token(const std::string& str) {
 }
 
 bool Grammar::is_keyword_message_argument(const std::string& str) {
-    return is_primitive_value(str) || is_namespace(str) || is_variable(str);
+    return is_object_value(str) || is_namespace(str) || is_variable(str);
 }
 
 bool Grammar::is_keyword_message_part(const std::string& str) {

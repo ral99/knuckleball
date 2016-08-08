@@ -222,38 +222,38 @@ TEST(Grammar, is_not_string_value) {
     EXPECT_FALSE(Grammar::is_string_value("\"\" "));
 }
 
-TEST(Grammar, is_primitive_type) {
-    EXPECT_TRUE(Grammar::is_primitive_type("Boolean"));
-    EXPECT_TRUE(Grammar::is_primitive_type("Character"));
-    EXPECT_TRUE(Grammar::is_primitive_type("Integer"));
-    EXPECT_TRUE(Grammar::is_primitive_type("Float"));
-    EXPECT_TRUE(Grammar::is_primitive_type("String"));
+TEST(Grammar, is_object_type) {
+    EXPECT_TRUE(Grammar::is_object_type("Boolean"));
+    EXPECT_TRUE(Grammar::is_object_type("Character"));
+    EXPECT_TRUE(Grammar::is_object_type("Integer"));
+    EXPECT_TRUE(Grammar::is_object_type("Float"));
+    EXPECT_TRUE(Grammar::is_object_type("String"));
 }
 
-TEST(Grammar, is_not_primitive_type) {
-    EXPECT_FALSE(Grammar::is_primitive_type("Vector"));
-    EXPECT_FALSE(Grammar::is_primitive_type("Vector<Integer>"));
-    EXPECT_FALSE(Grammar::is_primitive_type("Set"));
-    EXPECT_FALSE(Grammar::is_primitive_type("Set<Integer>"));
-    EXPECT_FALSE(Grammar::is_primitive_type("Dictionary"));
-    EXPECT_FALSE(Grammar::is_primitive_type("Dictionary<String, Integer>"));
+TEST(Grammar, is_not_object_type) {
+    EXPECT_FALSE(Grammar::is_object_type("Vector"));
+    EXPECT_FALSE(Grammar::is_object_type("Vector<Integer>"));
+    EXPECT_FALSE(Grammar::is_object_type("Set"));
+    EXPECT_FALSE(Grammar::is_object_type("Set<Integer>"));
+    EXPECT_FALSE(Grammar::is_object_type("Dictionary"));
+    EXPECT_FALSE(Grammar::is_object_type("Dictionary<String, Integer>"));
 }
 
-TEST(Grammar, is_primitive_value) {
-    EXPECT_TRUE(Grammar::is_primitive_value("true"));
-    EXPECT_TRUE(Grammar::is_primitive_value("false"));
-    EXPECT_TRUE(Grammar::is_primitive_value("'a'"));
-    EXPECT_TRUE(Grammar::is_primitive_value("42"));
-    EXPECT_TRUE(Grammar::is_primitive_value("42e5"));
-    EXPECT_TRUE(Grammar::is_primitive_value("\"knuckleball\""));
+TEST(Grammar, is_object_value) {
+    EXPECT_TRUE(Grammar::is_object_value("true"));
+    EXPECT_TRUE(Grammar::is_object_value("false"));
+    EXPECT_TRUE(Grammar::is_object_value("'a'"));
+    EXPECT_TRUE(Grammar::is_object_value("42"));
+    EXPECT_TRUE(Grammar::is_object_value("42e5"));
+    EXPECT_TRUE(Grammar::is_object_value("\"knuckleball\""));
 }
 
-TEST(Grammar, is_not_primitive_value) {
-    EXPECT_FALSE(Grammar::is_primitive_value(""));
-    EXPECT_FALSE(Grammar::is_primitive_value("prices"));
-    EXPECT_FALSE(Grammar::is_primitive_value("isEmpty?"));
-    EXPECT_FALSE(Grammar::is_primitive_value(" 42"));
-    EXPECT_FALSE(Grammar::is_primitive_value("42 "));
+TEST(Grammar, is_not_object_value) {
+    EXPECT_FALSE(Grammar::is_object_value(""));
+    EXPECT_FALSE(Grammar::is_object_value("prices"));
+    EXPECT_FALSE(Grammar::is_object_value("isEmpty?"));
+    EXPECT_FALSE(Grammar::is_object_value(" 42"));
+    EXPECT_FALSE(Grammar::is_object_value("42 "));
 }
 
 TEST(Grammar, is_vector_type) {
@@ -312,6 +312,20 @@ TEST(Grammar, is_not_dictionary_type) {
     EXPECT_FALSE(Grammar::is_dictionary_type("DICTIONARY<String, Integer>"));
     EXPECT_FALSE(Grammar::is_dictionary_type(" Dictionary<String, Integer>"));
     EXPECT_FALSE(Grammar::is_dictionary_type("Dictionary<String, Integer> "));
+}
+
+TEST(Grammar, is_container_type) {
+    EXPECT_TRUE(Grammar::is_container_type("Vector<Boolean>"));
+    EXPECT_TRUE(Grammar::is_container_type("Set<Character>"));
+    EXPECT_TRUE(Grammar::is_container_type("Dictionary<String, Float>"));
+}
+
+TEST(Grammar, is_not_container_type) {
+    EXPECT_FALSE(Grammar::is_container_type("Boolean"));
+    EXPECT_FALSE(Grammar::is_container_type("Character"));
+    EXPECT_FALSE(Grammar::is_container_type("Integer"));
+    EXPECT_FALSE(Grammar::is_container_type("Float"));
+    EXPECT_FALSE(Grammar::is_container_type("String"));
 }
 
 TEST(Grammar, is_type) {

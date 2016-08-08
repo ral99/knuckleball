@@ -41,12 +41,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // <float-value> --> [\+-]?([0-9]+ | [0-9]*\.[0-9]+ | [0-9]+\.[0-9]*)(e<integer-value>)?
 // <string-type> --> String
 // <string-value> --> ".*"
-// <primitive-type> --> <boolean-type> | <character-type> | <integer-type> | <float-type> | <string-type>
-// <primitive-value> --> <boolean-value> | <character-value> | <integer-value> | <float-value> | <string-value>
-// <vector-type> --> Vector\<<spaces><primitive-type><spaces>\>
-// <set-type> --> Set\<<spaces><primitive-type><spaces>\>
-// <dictionary-type> --> Dictionary\<<spaces><primitive-type><spaces>,<spaces><primitive-type><spaces>\>
-// <type> --> <primitive-type> | <vector-type> | <set-type> | <dictionary-type>
+// <object-type> --> <boolean-type> | <character-type> | <integer-type> | <float-type> | <string-type>
+// <object-value> --> <boolean-value> | <character-value> | <integer-value> | <float-value> | <string-value>
+// <vector-type> --> Vector\<<spaces><object-type><spaces>\>
+// <set-type> --> Set\<<spaces><object-type><spaces>\>
+// <dictionary-type> --> Dictionary\<<spaces><object-type><spaces>,<spaces><object-type><spaces>\>
+// <container-type> --> <vector-type> | <set-type> | <dictionary-type>
+// <type> --> <object-type> | <container-type>
 // <connection> --> Connection
 // <context> --> Context
 // <reserved-word> --> null | true | false | Connection | Context | Boolean | Character | Integer | Float | String |
@@ -57,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // <object> --> <connection> | <context> | <type> | <variable>
 // <unary-message> --> <identifier>\??
 // <keyword-message-token> --> <identifier>[:\?]{1}
-// <keyword-message-argument> --> <primitive-value> | <namespace> | <variable>
+// <keyword-message-argument> --> <object-value> | <namespace> | <variable>
 // <keyword-message-part> --> <keyword-message-token><spaces><keyword-message-argument>
 // <keyword-message> --> <keyword-message-part>(\s<spaces><keyword-message>)?
 // <statement> --> <spaces><object>\s<spaces>(<unary-message> | <keyword-message>)<spaces>;<spaces>
@@ -105,11 +106,11 @@ bool is_string_type(const std::string& str);
 // Grammar rule for <string-value>.
 bool is_string_value(const std::string& str);
 
-// Grammar rule for <primitive-type>.
-bool is_primitive_type(const std::string& str);
+// Grammar rule for <object-type>.
+bool is_object_type(const std::string& str);
 
-// Grammar rule for <primitive-value>.
-bool is_primitive_value(const std::string& str);
+// Grammar rule for <object-value>.
+bool is_object_value(const std::string& str);
 
 // Grammar rule for <vector-type>.
 bool is_vector_type(const std::string& str);
@@ -119,6 +120,9 @@ bool is_set_type(const std::string& str);
 
 // Grammar rule for <dictionary-type>.
 bool is_dictionary_type(const std::string& str);
+
+// Grammar rule for <container-type>.
+bool is_container_type(const std::string& str);
 
 // Grammar rule for <type>.
 bool is_type(const std::string& str);
