@@ -1,6 +1,22 @@
 # Knuckleball
 Knuckleball is an in-memory data structure server. It provides a language with a syntax similar to that of Smalltalk to create and manipulate simple data types like booleans, characters, integers, floats and strings, and containers like vectors, sets and dictionaries. Knuckleball is implemented as a single-threaded and asynchronous server, so it can handle multiple incoming connections and concurrency is not an issue. It can be used as cache or message broker. Usage as database is not advised by now since data is not being persisted on disk yet.
 
+**Table of Contents**
+* [Building](#building)
+  * [Dependencies](#dependencies)
+  * [Compiling](#compiling)
+  * [Testing](#testing)
+* [Getting Started](#getting-started)
+* [Reference](#reference)
+  * [Boolean](#boolean)
+  * [Character](#character)
+  * [Integer](#integer)
+  * [Float](#float)
+  * [String](#string)
+  * [Vector](#vector)
+  * [Set](#set)
+  * [Dictionary](#dictionary)
+
 ## Building
 Knuckleball is being tested on Linux and OS X. It may be compiled on other systems, perhaps with minor modifications.
 
