@@ -16,6 +16,7 @@ Knuckleball is an in-memory data structure server. It provides a language with a
   * [Vector](#vector)
   * [Set](#set)
   * [Dictionary](#dictionary)
+* [Future work](#future-work)
 
 ## Building
 Knuckleball is being tested on Linux and OS X. It may be compiled on other systems, perhaps with minor modifications.
