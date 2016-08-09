@@ -90,9 +90,9 @@ ERAs associateValue: 2.21 withKey: "Mariano Rivera";
 ERAs associateValue: 2.39 withKey: "Clayton Kershaw";
 > null
 ERAs getValueForKey: "Mariano Rivera";
-> 2.21
+> 2.210
 ERAs get;
-> (("Ed Walsh",1.82),("Clayton Kershaw",2.39),("Mariano Rivera",2.21))
+> (("Clayton Kershaw",2.390),("Ed Walsh",1.820),("Mariano Rivera",2.210))
 ```
 
 ## Reference
@@ -922,12 +922,12 @@ str get;
 > "knuckleball"
 ```
 
-* **insert: (character) beforeIndex: (integer)**
+* **insert: (string) beforeIndex: (integer)**
   - Returns: null
 ```
-String create: str withValue: "knckleball";
+String create: str withValue: "knkleball";
 > null
-str insert: 'u' beforeIndex: 2;
+str insert: "uc" beforeIndex: 2;
 > null
 str get;
 > "knuckleball"
@@ -1615,7 +1615,7 @@ Dictionaries are associative containers that store keys and their associated val
 * **create: (variable)**
   - Returns: null
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs get;
 > ()
@@ -1624,7 +1624,7 @@ ERAs get;
 * **createIfNotExists: (variable)**
   - Returns: null
 ```
-Dictionary<String, Integer> createIfNotExists: ERAs;
+Dictionary<String, Float> createIfNotExists: ERAs;
 > null
 ERAs get;
 > ()
@@ -1634,7 +1634,7 @@ ERAs get;
 * **get**
   - Returns: dictionary
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs get;
 > ()
@@ -1643,7 +1643,7 @@ ERAs get;
 * **isEmpty?**
   - Returns: boolean
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs isEmpty?;
 > true
@@ -1656,7 +1656,7 @@ ERAs isEmpty?;
 * **containsKey? (object)**
   - Returns: boolean
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs containsKey? "Ed Walsh";
 > false
@@ -1669,7 +1669,7 @@ ERAs containsKey? "Ed Walsh";
 * **size**
   - Returns: integer
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs size;
 > 0
@@ -1682,7 +1682,7 @@ ERAs size;
 * **keys**
   - Returns: vector
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs associateValue: 1.82 withKey: "Ed Walsh";
 > null
@@ -1697,7 +1697,7 @@ ERAs keys;
 * **values**
   - Returns: vector
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs associateValue: 1.82 withKey: "Ed Walsh";
 > null
@@ -1706,24 +1706,24 @@ ERAs associateValue: 2.21 withKey: "Mariano Rivera";
 ERAs associateValue: 2.39 withKey: "Clayton Kershaw";
 > null
 ERAs values;
-> [2.39,1.82,2.21]
+> [2.390,1.820,2.210]
 ```
 
 * **getValueForKey: (object)**
   - Returns: object
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs associateValue: 1.82 withKey: "Ed Walsh";
 > null
 ERAs getValueForKey: "Ed Walsh";
-> 1.82
+> 1.820
 ```
 
 * **associateValue: (object) withKey: (object)**
   - Returns: null
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs associateValue: 1.82 withKey: "Ed Walsh";
 > null
@@ -1734,7 +1734,7 @@ ERAs get;
 * **removeKey: (object)**
   - Returns: null
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs associateValue: 1.82 withKey: "Ed Walsh";
 > null
@@ -1747,7 +1747,7 @@ ERAs get;
 * **clear**
   - Returns: null
 ```
-Dictionary<String, Integer> create: ERAs;
+Dictionary<String, Float> create: ERAs;
 > null
 ERAs associateValue: 1.82 withKey: "Ed Walsh";
 > null
